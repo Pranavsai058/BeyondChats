@@ -1,0 +1,30 @@
+class ArticleController extends Controller
+{
+    public function index()
+    {
+        return Article::latest()->get();
+    }
+
+    public function show($id)
+    {
+        return Article::findOrFail($id);
+    }
+
+    public function store(Request $request)
+    {
+        return Article::create($request->all());
+    }
+
+    public function update(Request $request, $id)
+    {
+        $article = Article::findOrFail($id);
+        $article->update($request->all());
+        return $article;
+    }
+
+    public function destroy($id)
+    {
+        Article::destroy($id);
+        return response()->json(['deleted' => true]);
+    }
+}
